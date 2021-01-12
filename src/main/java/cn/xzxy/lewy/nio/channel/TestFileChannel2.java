@@ -21,9 +21,9 @@ public class TestFileChannel2 {
      */
     public static void main(String[] args) throws IOException {
         //创建输入，这是要传递问文件
-        FileInputStream fis = new FileInputStream("source.txt");
+        FileInputStream fis = new FileInputStream("data/source.txt");
         //创建输出， 这是要到谁的手裡
-        FileOutputStream fos = new FileOutputStream("destination.txt");
+        FileOutputStream fos = new FileOutputStream("data/destination.txt");
         //创建通道 也就是选择什麽人，先送到邮局，一个接受邮件的到邮局的快递员
         FileChannel fisChannel = fis.getChannel();
         //创建通道 也就是选择什麽人 ，邮局送到个人的手裡，一个送货的快递员

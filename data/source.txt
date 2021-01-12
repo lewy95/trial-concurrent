@@ -1,0 +1,90 @@
+private static int[] bubbleSort(int[] array) {
+    if (array.length == 0) {
+        return array;
+    }
+    for (int i = 0; i < array.length - 1; i++) {
+        for (int j = 0; j < array.length - 1 - i; j++) {
+            if (array[j] > array[j + 1]) {
+                swap(array, j, j + 1);
+            }
+        }
+    }
+    return array;
+}
+
+def bubbleSort(a: Array[Int]): Array[Int] = {
+    for (i <- 0 until (a.length - 1)) {
+        for (j <- 0 until (a.length - 1 - i)) {
+            if (a(j) > a(j + 1)) swap(a, j, j + 1)
+        }
+    }
+    a
+}
+
+private static int[] selectionSort(int[] array) {
+    for (int i = 0; i < array.length -1; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < array.length; j++) {
+            minIndex = array[j] < array[minIndex] ? j : minIndex;
+        }
+        swap(array, minIndex, i);
+    }
+    return array;
+}
+
+def selectSort(a: Array[Int]): Array[Int] = {
+    //选n-1轮
+    for (i <- a.indices) {
+        var minIndex = i
+        for (j <- (i + 1) until a.length) {
+            minIndex = if (a(minIndex) < a(j)) minIndex else j
+        }
+        swap(a, minIndex, i)
+    }
+    a
+}
+
+private static int[] insertSort(int[] array) {
+    if (array.length == 0) {
+        return array;
+    }
+    for (int i = 1; i < array.length; i++) {
+        for (int j = i -1; j >= 0 && array[j] > array[j + 1]; j--) {
+            swap(array, j, j + 1);
+        }
+    }
+    return array;
+}
+
+def insertSort(a: Array[Int]): Array[Int] = {
+    for (i <- 1 until a.length) {
+        for (j <- (i - 1) to 0 by -1) {
+            if (a(j) > a(j + 1)) swap(a, j, j + 1)
+        }
+    }
+    a
+}
+
+private static int[] shellSort(int[] array) {
+    int len = array.length;
+    if (len == 0) {
+        return array;
+    }
+    //定义初始增量，希尔建议的增量是length的一半
+    int temp,gap = len / 2;
+    while (gap > 0) {
+        for (int i = gap; i < len; i++) {
+            temp = array[i];
+            int preIndex = i - gap;
+            while(preIndex >= 0 && array[preIndex] > temp) {
+                array[preIndex + gap] = array[preIndex];
+                preIndex -= gap;
+            }
+            //这里要注意，while循环执行结束后preIndex又被减了一个gap，是负值
+            //此时再加上gap实际上就是array[preIndex]
+            array[preIndex + gap] = temp;
+        }
+        gap /= 2;
+    }
+    return array;
+}
