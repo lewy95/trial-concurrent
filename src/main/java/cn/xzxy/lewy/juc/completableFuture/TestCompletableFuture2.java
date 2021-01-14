@@ -67,8 +67,4 @@ public class TestCompletableFuture2 {
             e.printStackTrace();
         }
     }
-
-    // getNow
-    // toCompletableFuture
-
 }

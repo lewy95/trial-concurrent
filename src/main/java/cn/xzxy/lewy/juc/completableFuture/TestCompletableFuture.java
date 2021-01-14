@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * 2. complete
  * 3. cancel
  * 4. completeExceptionally
- * 5. getNow
+ * 5. toCompletableFuture
  * 5. 线程池测试
  */
 public class TestCompletableFuture {
@@ -38,6 +38,31 @@ public class TestCompletableFuture {
             // System.out.println(future.get(2, TimeUnit.SECONDS)); // 阻塞指定时间，抛出检查性异常
             System.out.println(future.getNow("GetNow")); // 阻塞，若没值返回默认值
             // System.out.println(future.join()); // 阻塞，抛出非检查性异常
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * toCompletableFuture：返回自己
+     */
+    @Test
+    public void testToCompletableFuture() {
+
+        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                throw new IllegalStateException(e);
+            }
+            return "Result of the asynchronous computation";
+        });
+
+        try {
+            CompletableFuture<String> future2 = future.toCompletableFuture();
+            System.out.println(future == future2); // true
+            System.out.println(future.get());
         } catch (Exception e) {
             e.printStackTrace();
         }
